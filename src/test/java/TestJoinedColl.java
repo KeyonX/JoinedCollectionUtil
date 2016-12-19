@@ -21,6 +21,7 @@ public class TestJoinedColl {
                 convertResult.putAll(toMap(bean.getLeft()));
                 Consumer consumer = bean.getRight();
                 convertResult.put("consumerName", consumer.getName());
+                convertResult.put("sex", consumer.getSex() == 1 ? "男" : "女");
                 return true;
             }
         }).innerJoin(productList).on("productId","id").select(new DataConverter() {

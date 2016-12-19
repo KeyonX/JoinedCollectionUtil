@@ -1,6 +1,7 @@
 import joinedcollection.DataConverter;
 import joinedcollection.JoinedCollection;
 import joinedcollection.MatchedBeans;
+import sun.org.mozilla.javascript.internal.json.JsonParser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ public class TestJoinedColl {
         List<Map<String,String>> result = orderList.innerJoin(consumerList).on("consumerId","id").select(new DataConverter() {
             @Override
             public boolean convert(MatchedBeans bean, Map<String, String> convertResult) {
-                convertResult.putAll(toMap(bean));
+                convertResult.putAll(toMap(bean.getLeft()));
                 Consumer consumer = bean.getRight();
                 convertResult.put("consumerName", consumer.getName());
                 return true;
@@ -33,7 +34,7 @@ public class TestJoinedColl {
                 return true;
             }
         }).getBeanData();
-
+        System.out.println(result);
     }
 
     public static List<Order> getOrders() {
